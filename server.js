@@ -4,6 +4,10 @@ var bodyParser=require('body-parser');
 const app=express();
 open = require('opn'),
 
+app.use(bodyParser.urlencoded({extended:true}));
+
+app.use( express.static( "public" ) );
+
 app.get('/',function(req,res){
   res.render('home.ejs');
 })
