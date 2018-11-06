@@ -13,13 +13,6 @@ app.listen(3000,function() {
 var contents = fs.readFileSync('keys.txt', 'utf8');
 mongoose.connect(contents);
 
-const Cat = mongoose.model('Cat', { name: String });
-
-const kitty = new Cat({ name: 'Zildjian' });
-kitty.save().then(() => console.log('meow'));
-
-console.log(Cat.find('Zildjian'));
-
 app.get('/users',function(req,res){
   Users.find({})
   .exec(function(err,Users){

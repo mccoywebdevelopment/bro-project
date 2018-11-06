@@ -1,6 +1,6 @@
 const mongoose=require('mongoose');
 const fs = require('fs');
-var contents = fs.readFileSync('../keys.txt', 'utf8');
+var contents = fs.readFileSync('keys.txt', 'utf8');
 mongoose.connect(contents);
 
 const Schema=mongoose.Schema;
