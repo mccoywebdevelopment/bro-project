@@ -3,18 +3,22 @@ const express=require('express');
 const bodyParser=require('body-parser');
 const app=express();
 const fs = require('fs');
-const MongoClient = require('mongodb').MongoClient;
+const mongoose=require('mongoose');
 const Users=require('./models/users');
  
-var contents = fs.readFileSync('keys.txt', 'utf8');
-console.log(contents);
-
-var db
-MongoClient.Promise=global.Promise;
-MongoClient.connect(contents, (err, client) => {
-  if (err) return console.log(err)
-  db = client.db('bro_proj') // whatever your database name is
+app.listen(3000,function() {
+    console.log("Listening on Port:"+3000);
+    //open('http://localhost:2000');
 });
+var contents = fs.readFileSync('keys.txt', 'utf8');
+mongoose.connect(contents);
+
+const Cat = mongoose.model('Cat', { name: String });
+
+const kitty = new Cat({ name: 'Zildjian' });
+kitty.save().then(() => console.log('meow'));
+
+console.log(Cat.find());
 
 app.get('/users',function(req,res){
   Users.find({})
@@ -33,9 +37,4 @@ app.use( express.static( "public" ) );
 
 app.get('/',function(req,res){
   res.render('home.ejs');
-})
-app.listen(2000,function() {
-    console.log("Listening on Port:"+2000);
-    //open('http://localhost:2000');
 });
-//lksdsdf
